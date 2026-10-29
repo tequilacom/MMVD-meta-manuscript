@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>MMVD Manuscript v1.2.2 (EN, pre-meeting) · Annotated · 2026-10-29 04:45</title>
+<title>MMVD Manuscript v1.2.7 (EN, pre-meeting) · Annotated · 2026-10-29 12:15</title>
 <style>
   :root{
     --ink:#1a1a1a; --muted:#6b7280; --line:#e5e7eb; --paper:#ffffff;
@@ -39,9 +39,24 @@
   .blk:hover .ann-btn{opacity:1}
   .ann-count{display:inline-block;background:var(--annbd);color:#fff;border-radius:9px;
              font-size:11px;padding:0 7px;margin-left:6px;font-family:sans-serif;vertical-align:2px}
-  .ann-cards{margin-top:6px}
+  .ann-cards{position:absolute;left:100%;top:-2px;margin-left:16px;width:264px;max-height:78vh;
+             overflow-y:auto;background:#fffbeb;border:1.5px dashed var(--annbd);border-radius:10px;
+             padding:8px 10px 4px;display:none;z-index:6;box-shadow:2px 3px 10px rgba(180,83,9,.08)}
+  .blk.has-ann .ann-cards{display:block}
+  .ann-cards::before{content:"📌 Comments on this paragraph (" attr(data-n) ")";display:block;font-weight:700;font-size:12px;
+             color:#92400e;font-family:"Segoe UI",Arial,sans-serif;margin-bottom:2px}
+  .ann-cards .ann-card{background:#fff}
+  .ann-cards.flash{animation:panelflash 1.3s ease-out}
+  @keyframes panelflash{0%{box-shadow:0 0 0 4px #f59e0b;background:#fef3c7}100%{box-shadow:2px 3px 10px rgba(180,83,9,.08)}}
+  @media (max-width:1400px){
+    .ann-cards{position:fixed;left:auto;right:10px;top:72px;margin:0;width:min(330px,46vw);max-height:72vh;overflow:auto;
+               display:none;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.22)}
+    .ann-cards:empty{display:none}
+    .blk.has-ann .ann-cards{display:none}
+    .blk.has-ann.annot-open .ann-cards{display:block}
+  }
   .ann-card{background:#fff7ed;border:1px solid var(--annbd);border-left:4px solid var(--annbd);
-            border-radius:6px;padding:8px 10px;margin-top:6px;font-size:14px;line-height:1.7;
+            border-radius:6px;padding:8px 48px 8px 10px;margin-top:6px;font-size:14px;line-height:1.7;
             font-family:"Segoe UI",Arial,sans-serif;position:relative}
   .ann-card .q{color:#92400e;font-style:italic;margin-bottom:4px;display:block}
   .ann-card .t{white-space:pre-wrap}
@@ -102,12 +117,12 @@
 <body>
 
 <div class="toolbar">
-  <span>📝 <b>MMVD Manuscript <b style="color:#c62828">v1.2</b> (pre-meeting)</b>　🕐 2026-10-29 03:05 (GMT+8)　Comments: <b id="annTotal">0</b></span>
+  <span>📝 <b>MMVD Manuscript <b style="color:#c62828">v1.2.7</b> (pre-meeting)</b>　🕐 2026-10-29 12:15 (GMT+8)　Comments: <b id="annTotal" style="cursor:pointer" title="Click to jump to the next annotated paragraph">0</b> ▸</span>
   <button onclick="exportAnn()">⬇ Export comments</button>
   <button onclick="copyAnn()">📋 Copy comments</button>
   <button onclick="toggleAll()" id="toggleBtn">Hide comments</button>
   <button class="warn" onclick="clearAll()">🗑 Clear all</button>
-  <span class="help">Select any text → instantly filed into that paragraph's comment cards (click a card to add a note); hover a paragraph → “+ Comment” = comment on the whole paragraph; Esc closes</span>
+  <span class="help">Select text = mark that sentence; “+ Comment” = whole-paragraph card → both filed directly into this paragraph's side panel (no popup); click a card to write/edit a note; click the counter above to jump between annotated paragraphs</span>
 </div>
 
 <div class="page">
@@ -116,11 +131,13 @@
 
 <div class="gap-box" style="border-color:#c62828;background:#fff5f5">
 <h4>📌 Version &amp; timestamp (workflow: every revision bumps the version + timestamp; please annotate against the version shown above)</h4>
-<p style="margin:4px 0"><b>Current version: v1.2.2 · 2026-10-29 04:45 (GMT+8) · pre-meeting build + select-to-mark (any text selection is instantly filed into that paragraph's comment cards; click a card to add a note)</b> — fully synced with the Chinese annotated version.</p>
+<p style="margin:4px 0"><b>Current version: v1.2.7 · 2026-10-29 12:15 (GMT+8) · fully synced with Chinese v1.2.7</b> — new Discussion paragraph §4.4b (re-orientation from staging to heart-failure recognition + breed reference caveat), core-takeaway #8, first 31 references filled, and the upgraded annotation engine (side panel + hover float + backup).</p>
 <ul style="margin:6px 0">
 <li><b>v1.0</b> · Oct 27 — English full draft (Intro / Methods / Results / Discussion + figure–table map + open decisions D1–D5)</li>
 <li><b>v1.1</b> · Oct 29 01:45 — MDPI-framework rewrite after the professor's HCM template; 17 embedded figures; discussion topic tags; figure &amp; content gap audit (Chinese)</li>
 <li><b>v1.2</b> · Oct 29 02:55 — three-author byline; Introduction “discovery-stage” paragraph; Discussion additions (dichotomization, incremental value, failure-mapping paragraph); Conclusion minimum reporting standards + three thematic routes; <b>Table 2 = 2×2 counts</b>; table numbering aligned</li>
+<li><b>v1.2.2–v1.2.5</b> · Oct 29 04:45–05:50 — annotation engine upgrades on the Chinese build: select-to-mark, one panel per paragraph (side panel in the margin, hover float on narrow windows), counter jump-navigation, automatic comment backup; English was held back at v1.2.2 by request</li>
+<li><b>v1.2.6–v1.2.7</b> · Oct 29 11:55–12:05 — Discussion §4.4b (staging → CHF recognition re-orientation; the single-modality/priority question; breed-standardization boundary); core takeaway #8; first 31 references with DOIs; wording audit. <b>This build syncs all of the above into English.</b></li>
 <li><b>v1.3 (next)</b> — after supervisor feedback</li>
 </ul>
 </div>
@@ -154,15 +171,15 @@
 <h2>1. Introduction</h2>
 
 <div class="blk" data-id="intro-1">
-<p>Myxomatous mitral valve disease (MMVD) is the most common cardiac disease in dogs, accounting for approximately three quarters of all acquired cardiovascular disorders in the species, with prevalence rising steeply with age and reaching the majority of small-breed dogs beyond ten years of age <span class="ref">MMVD epidemiology and prevalence in small-breed dogs</span>. The clinical course is classically described by the American College of Veterinary Internal Medicine (ACVIM) staging scheme, which stratifies affected dogs from asymptomatic stage B1 (no cardiac remodeling) through stage B2 (remodeling without congestive signs) to stage C (current or prior congestive heart failure, CHF) and stage D (refractory CHF) <span class="ref">ACVIM consensus statement MMVD staging 2019</span>. Within this framework, echocardiography is the cornerstone of diagnosis and staging: it defines the left atrial and ventricular remodeling that separates B1 from B2 and thereby identifies the patients in whom initiation of pimobendan delays the onset of CHF, as established in the EPIC trial <span class="ref">EPIC trial: pimobendan delays CHF in stage B2</span>. Echocardiography nevertheless has practical limitations. It requires expensive equipment, operator training and experience, and anesthesia-free examination protocols that are not universally available in first-opinion practice <span class="ref">limited access to echocardiography in primary care</span>. Moreover, the B1–B2 threshold is inherently marginal: dogs with borderline measurements around the accepted cutoffs are difficult to stage reproducibly, even among experienced cardiologists <span class="ref">interobserver variability and borderline B2 classification</span>. These limitations create a genuine demand for accessible, objective adjunctive tests.</p>
+<p>Myxomatous mitral valve disease (MMVD) is the most common cardiac disease in dogs, accounting for approximately three quarters of all acquired cardiovascular disorders in the species, with prevalence rising steeply with age and reaching the majority of small-breed dogs beyond ten years of age <span class="ref">MMVD epidemiology and prevalence in small-breed dogs</span>. The clinical course is classically described by the American College of Veterinary Internal Medicine (ACVIM) staging scheme, which stratifies affected dogs from asymptomatic stage B1 (no cardiac remodeling) through stage B2 (remodeling without congestive signs) to stage C (current or prior congestive heart failure, CHF) and stage D (refractory CHF) <span class="ref">ACVIM consensus statement MMVD staging 2019 [1]</span>. Within this framework, echocardiography is the cornerstone of diagnosis and staging: it defines the left atrial and ventricular remodeling that separates B1 from B2 and thereby identifies the patients in whom initiation of pimobendan delays the onset of CHF, as established in the EPIC trial <span class="ref">EPIC trial: pimobendan delays CHF in stage B2 [2]</span>. Echocardiography nevertheless has practical limitations. It requires expensive equipment, operator training and experience, and anesthesia-free examination protocols that are not universally available in first-opinion practice <span class="ref">limited access to echocardiography in primary care</span>. Moreover, the B1–B2 threshold is inherently marginal: dogs with borderline measurements around the accepted cutoffs are difficult to stage reproducibly, even among experienced cardiologists <span class="ref">interobserver variability and borderline B2 classification</span>. These limitations create a genuine demand for accessible, objective adjunctive tests.</p>
 </div>
 
 <div class="blk" data-id="intro-2">
-<p>Circulating cardiac biomarkers offer one such adjunct and have a coherent pathophysiological basis. Myocardial and valvular remodeling in MMVD produces volume overload and progressive left-sided chamber dilation, leading to increased ventricular wall stretch and enhanced secretion of B-type natriuretic peptides; the more stable amino-terminal fragment, NT-proBNP, has therefore been evaluated extensively as a marker of cardiac remodeling and congestion <span class="ref">NT-proBNP physiology and wall stretch in dogs</span>. Conversely, myocyte injury and strain may release cardiac troponin I (cTnI) into the circulation, providing a complementary signal of myocardial damage <span class="ref">cTnI as marker of myocardial injury in canine heart disease</span>. Additional candidates, including galectin-3 as a marker of fibrosis, have been explored in this setting <span class="ref">galectin-3 and cardiac fibrosis in veterinary medicine</span>. The central clinical question, however, remains unresolved: are these biomarkers intended to <b>replace</b> echocardiography as a diagnostic test, or merely to <b>assist</b> clinical judgment as a probability-modifying tool that complements echocardiographic staging? How this question is answered determines the required accuracy standard, the acceptable cost, and the settings in which biomarker testing is appropriate.</p>
+<p>Circulating cardiac biomarkers offer one such adjunct and have a coherent pathophysiological basis. Myocardial and valvular remodeling in MMVD produces volume overload and progressive left-sided chamber dilation, leading to increased ventricular wall stretch and enhanced secretion of B-type natriuretic peptides; the more stable amino-terminal fragment, NT-proBNP, has therefore been evaluated extensively as a marker of cardiac remodeling and congestion <span class="ref">NT-proBNP physiology and wall stretch in dogs</span>. Conversely, myocyte injury and strain may release cardiac troponin I (cTnI) into the circulation, providing a complementary signal of myocardial damage <span class="ref">cTnI as marker of myocardial injury in canine heart disease [3]</span>. Additional candidates, including galectin-3 as a marker of fibrosis, have been explored in this setting <span class="ref">galectin-3 and cardiac fibrosis in veterinary medicine [4]</span>. The central clinical question, however, remains unresolved: are these biomarkers intended to <b>replace</b> echocardiography as a diagnostic test, or merely to <b>assist</b> clinical judgment as a probability-modifying tool that complements echocardiographic staging? How this question is answered determines the required accuracy standard, the acceptable cost, and the settings in which biomarker testing is appropriate.</p>
 </div>
 
 <div class="blk" data-id="intro-3">
-<p>Although individual studies of NT-proBNP and cTnI for detecting ACVIM stage B2 or CHF have been published over the past two decades, their conclusions are notably inconsistent, reflecting differences in target conditions, comparator groups, assay platforms, and—critically—in the cutoff values used to define test positivity, many of which were derived post hoc from the same populations being evaluated <span class="ref">inconsistent conclusions among individual canine biomarker accuracy studies</span>. To date, no systematic review or formal meta-analysis has synthesized this evidence base, quantified summary accuracy with appropriate bivariate modeling, or appraised the methodological quality of the underlying studies. This constitutes a clear evidence gap: practitioners are left to interpret discordant single-study results without a pooled estimate of diagnostic performance, and researchers lack a structured account of the sources of heterogeneity that might inform the design of future studies <span class="ref">absence of prior systematic reviews of canine cardiac biomarkers</span>.</p>
+<p>Although individual studies of NT-proBNP and cTnI for detecting ACVIM stage B2 or CHF have been published over the past two decades, their conclusions are notably inconsistent, reflecting differences in target conditions, comparator groups, assay platforms, and—critically—in the cutoff values used to define test positivity, many of which were derived post hoc from the same populations being evaluated <span class="ref">inconsistent conclusions among individual canine biomarker accuracy studies [5–9]</span>. To date, no systematic review or formal meta-analysis has synthesized this evidence base, quantified summary accuracy with appropriate bivariate modeling, or appraised the methodological quality of the underlying studies. This constitutes a clear evidence gap: practitioners are left to interpret discordant single-study results without a pooled estimate of diagnostic performance, and researchers lack a structured account of the sources of heterogeneity that might inform the design of future studies <span class="ref">absence of prior systematic reviews of canine cardiac biomarkers</span>.</p>
 </div>
 
 <div class="blk" data-id="intro-3b">
@@ -177,7 +194,7 @@
 <h2>2. Materials and Methods</h2>
 
 <div class="blk" data-id="meth-0">
-<p>This review was conducted and is reported following the PRISMA-DTA 2021 reporting guideline <span class="ref">PRISMA-DTA 2021 statement</span>.</p>
+<p>This review was conducted and is reported following the PRISMA-DTA 2021 reporting guideline <span class="ref">PRISMA-DTA 2021 statement [10,11]</span>.</p>
 </div>
 
 <h3>2.1 Protocol and registration</h3>
@@ -255,7 +272,7 @@
 </div>
 
 <div class="gap-box">
-<h4>【Table 1 (placeholder) · Characteristics of included studies】— cited in text, not yet typeset</h4>
+<h4>[Table 1 (placeholder) · Characteristics of included studies]— cited in text, not yet typeset</h4>
 <ul>
 <li><b>What goes here:</b> 12 included studies × 8 columns (Study / Country / Design / Population &amp; n / Index test(s) / Reference standard / Cut-offs / Data type contributed), plus 3 summary rows.</li>
 <li><span class="ok">Data ready</span>: <code>03_output/tables/table1_characteristics.csv</code> (reconciled: DTA 18 rows + prognostic 5 rows all claimed).</li>
@@ -347,7 +364,7 @@
 </div>
 
 <div class="gap-box">
-<h4>【Figures (placeholder) · §3.6 subgroup forest plots】— PNG files exist, not yet embedded</h4>
+<h4>[Figures (placeholder) · §3.6 subgroup forest plots]— PNG files exist, not yet embedded</h4>
 <ul>
 <li><b>What goes here:</b> sensitivity/specificity forest plots for the NT-proBNP (10 combinations) and cTnI (5 combinations) subgroups — 4 plots (as Figs 9C–F or supplementary).</li>
 <li><span class="ok">Files exist</span>: <code>03_output/figures/classic/classic_forest_sens_BIOM_NTproBNP.png</code> (and spec/cTnI counterparts). §3.6 quotes numbers without forest-plot support — reviewers will likely ask for these.</li>
@@ -360,7 +377,7 @@
 </div>
 
 <div class="gap-box">
-<h4>【Table 3 + Figure (placeholders) · §3.7 heterogeneity &amp; sensitivity】— cited in text / no figure yet</h4>
+<h4>[Table 3 + Figure (placeholders) · §3.7 heterogeneity &amp; sensitivity]— cited in text / no figure yet</h4>
 <ul>
 <li><b>Table 3 (placeholder):</b> "Between-study SDs (logit scale)" — cited in text but <b>not yet constructed</b>; extract τ/σ parameters per analysis set from <code>pooled_results_master.csv</code>.</li>
 <li><b>Figure (placeholder, to be drawn):</b> sensitivity-analysis comparison forest plots — Group A high-sensitivity cutoff vs primary (Sens 0.655→0.728), Group B healthy controls vs primary (DOR 8.86→10.69). <span class="no">Classic-style versions not yet generated</span>.</li>
@@ -384,7 +401,7 @@
 </div>
 
 <div class="gap-box">
-<h4>【Figure 10C (placeholder) · cTnI Deek's funnel plot】— file exists, not yet embedded</h4>
+<h4>[Figure 10C (placeholder) · cTnI Deek's funnel plot]— file exists, not yet embedded</h4>
 <ul>
 <li><b>What goes here:</b> cTnI subgroup Deek's funnel plot (§3.8 cites P = 0.110 but only panels A/B are shown).</li>
 <li><span class="ok">File exists</span>: <code>03_output/figures/classic/classic_deeks_BIOM_cTnI.png</code> — can be merged into a three-panel Figure 10.</li>
@@ -417,7 +434,7 @@
 </div>
 
 <div class="gap-box">
-<h4>【Figure/Table (placeholder) · §3.9 prognostic evidence visualization】— currently text-only; reviewers may ask for a visual</h4>
+<h4>[Figure/Table (placeholder) · §3.9 prognostic evidence visualization]— currently text-only; reviewers may ask for a visual</h4>
 <ul>
 <li><b>Suggested:</b> a "prognostic effect estimates summary table" (row = study × predictor × outcome × HR/CI/adjustment) or an "unpooled HR point-estimate plot" (log-scale lines per study, <b>no pooled diamond</b> — pooling was not met, so a diamond would invite criticism).</li>
 <li><span class="ok">Data ready</span>: <code>03_output/tables/prognostic_evidence.csv</code> (67 evidence rows; §3.9 quotes the core lines).</li>
@@ -438,17 +455,17 @@
 
 <div class="blk" data-id="disc-2">
 <span class="topic-tag">This paragraph: ② comparison with previous single studies — translating qualitative conclusions into quantitative context; the field's inconsistency is partly self-inflicted</span>
-<p>Our pooled estimates are broadly consistent with—while contextualizing—the qualitative conclusions of the individual studies that have populated this literature. Wilshaw 2021 and Klein 2022 generally concluded that NT-proBNP concentration increases with advancing ACVIM stage and can discriminate remodeled from non-remodeled dogs, but both emphasized imperfect discrimination at the individual level and dependence on the chosen threshold <span class="ref">Wilshaw 2021 NT-proBNP across ACVIM stages</span>. Wesselowski 2023 similarly reported that natriuretic peptides perform acceptably for distinguishing congested from non-congested patients but stressed assay and cutoff variability <span class="ref">Wesselowski 2023 natriuretic peptide CHF discrimination</span>. Ogawa 2021 reported encouraging discrimination for B2 detection in a cohort of small-breed dogs while noting the small sample and the need for external validation <span class="ref">Ogawa 2021 biomarker detection of stage B2</span>. Schober 2010, one of the earliest rigorously designed studies, concluded that NT-proBNP was informative but emphasized that healthy dogs and dogs with early disease overlap substantially <span class="ref">Schober 2010 early NT-proBNP validation study</span>. Our synthesis converts these qualitative statements into a quantitative position: the tests are genuinely informative (DOR 8.96) but neither the near-perfect discriminator hoped for by enthusiasts nor the useless test dismissed by skeptics; the observed summary operating point sits in the moderate range, and the between-study dispersion visible in the SROC plane is explained largely by design choices rather than by biology alone. In line with the caveats voiced in the primary studies, our subgroup analyses attribute much of the heterogeneity to cutoff strategy and comparator composition, confirming that the field's inconsistency is partly self-inflicted.</p>
+<p>Our pooled estimates are broadly consistent with—while contextualizing—the qualitative conclusions of the individual studies that have populated this literature. Wilshaw 2021 and Klein 2022 generally concluded that NT-proBNP concentration increases with advancing ACVIM stage and can discriminate remodeled from non-remodeled dogs, but both emphasized imperfect discrimination at the individual level and dependence on the chosen threshold <span class="ref">Wilshaw 2021 NT-proBNP across ACVIM stages [5]</span>. Wesselowski 2023 similarly reported that natriuretic peptides perform acceptably for distinguishing congested from non-congested patients but stressed assay and cutoff variability <span class="ref">Wesselowski 2023 natriuretic peptide CHF discrimination [7]</span>. Ogawa 2021 reported encouraging discrimination for B2 detection in a cohort of small-breed dogs while noting the small sample and the need for external validation <span class="ref">Ogawa 2021 biomarker detection of stage B2 [8]</span>. Schober 2010, one of the earliest rigorously designed studies, concluded that NT-proBNP was informative but emphasized that healthy dogs and dogs with early disease overlap substantially <span class="ref">Schober 2010 early NT-proBNP validation study [9]</span>. Our synthesis converts these qualitative statements into a quantitative position: the tests are genuinely informative (DOR 8.96) but neither the near-perfect discriminator hoped for by enthusiasts nor the useless test dismissed by skeptics; the observed summary operating point sits in the moderate range, and the between-study dispersion visible in the SROC plane is explained largely by design choices rather than by biology alone. In line with the caveats voiced in the primary studies, our subgroup analyses attribute much of the heterogeneity to cutoff strategy and comparator composition, confirming that the field's inconsistency is partly self-inflicted.</p>
 </div>
 
 <div class="blk" data-id="disc-2b-sdma">
 <span class="topic-tag">This paragraph: ③ boundary of cardiorenal-axis adjacent markers — why SDMA and allies did not enter, and how that strengthens the natriuretic/troponin focus</span>
-<p>It is worth delimiting the scope of this synthesis with respect to markers adjacent to the <b>cardiorenal axis</b>. Several studies of symmetric dimethylarginine (SDMA) and related renal markers in MMVD were identified at the full-text stage and did not enter the meta-analysis: serum cystatin C and SDMA in dogs with congestive failure (Choi 2017), SDMA reliability across ACVIM stages (Savarese 2018), plasma dimethylarginines across disease severity (Valente 2020; Valente 2021), and the renal resistive index combined with SDMA and cystatin C (Szczepankiewicz 2021). None of these reported receiver-operating-characteristic analyses with derived cutoffs against ACVIM target conditions, so no 2×2 table could be reconstructed; where group comparisons were performed, SDMA did not discriminate MMVD stages (Savarese 2018; Valente 2020), and no adjusted survival models were available. SDMA therefore remains a marker of renal function rather than of cardiac remodeling in this disease, and its negative or non-quantitative record in MMVD <b>reinforces—rather than weakens</b>—the focus of the present synthesis on natriuretic peptides and cardiac troponins <span class="ref">SDMA as GFR marker in dogs; negative SDMA findings in canine cardiology</span>.</p>
+<p>It is worth delimiting the scope of this synthesis with respect to markers adjacent to the <b>cardiorenal axis</b>. Several studies of symmetric dimethylarginine (SDMA) and related renal markers in MMVD were identified at the full-text stage and did not enter the meta-analysis: serum cystatin C and SDMA in dogs with congestive failure (Choi 2017), SDMA reliability across ACVIM stages (Savarese 2018), plasma dimethylarginines across disease severity (Valente 2020; Valente 2021), and the renal resistive index combined with SDMA and cystatin C (Szczepankiewicz 2021). None of these reported receiver-operating-characteristic analyses with derived cutoffs against ACVIM target conditions, so no 2×2 table could be reconstructed; where group comparisons were performed, SDMA did not discriminate MMVD stages (Savarese 2018; Valente 2020), and no adjusted survival models were available. SDMA therefore remains a marker of renal function rather than of cardiac remodeling in this disease, and its negative or non-quantitative record in MMVD <b>reinforces—rather than weakens</b>—the focus of the present synthesis on natriuretic peptides and cardiac troponins <span class="ref">SDMA as GFR marker in dogs [12]; negative SDMA findings in canine cardiology [13–16]</span>.</p>
 </div>
 
 <div class="blk" data-id="disc-2c">
 <span class="topic-tag">New (Oct 29): why most studies in this field cannot enter quantitative synthesis — a systematic failure-mapping of the 55 excluded reports ("evidence ecology")</span>
-<p>Classifying the 55 excluded reports one by one allowed this review to move beyond enumerating exclusion reasons toward characterizing <b>recurrent failure modes in the field's evidence production</b>. Three patterns recurred. First, <i>pseudo-longitudinal designs</i>: several abstracts advertised prognostic or longitudinal follow-up, yet the underlying studies were cross-sectional comparisons — blood sampling demonstrating that concentrations "increase with stage" — without hard clinical endpoints (cardiac death, incident CHF) or multivariable Cox models, and hence without endpoint events or hazard ratios, leaving nothing for quantitative synthesis. Second, <i>misalignment between marker and clinical question</i>: many studies measured organ-specific or systemic markers (red-cell distribution width, lipase, endothelin-1, soluble ST2, nitrotyrosine) <span class="ref">RDW and pulmonary hypertension; ET-1 in canine heart disease; sST2 in MMVD</span> that do not intersect with an ACVIM-anchored diagnostic question and were excluded as off-target. Third, <i>fragmented reference frameworks</i>: some reports substituted a single echocardiographic parameter (e.g., mitral regurgitant jet area) or ad hoc grading schemes for the full ACVIM system, precluding ROC computation against a common target condition or pooling with the present dataset. These excluded directions are not without value — soluble ST2 and galectin-3 (fibrosis axis) and endothelin-1 (pulmonary vascular–right heart axis) each correspond to coherent pathophysiological pathways — they have simply not yet been placed within the study template that anchors an ACVIM reference standard, hard endpoints, and prespecified cutoffs. The mapping suggests that what the field lacks is not new biomarkers but <b>a unified research framework capable of converting candidate markers into synthesizable evidence</b>.</p>
+<p>Classifying the 55 excluded reports one by one allowed this review to move beyond enumerating exclusion reasons toward characterizing <b>recurrent failure modes in the field's evidence production</b>. Three patterns recurred. First, <i>pseudo-longitudinal designs</i>: several abstracts advertised prognostic or longitudinal follow-up, yet the underlying studies were cross-sectional comparisons — blood sampling demonstrating that concentrations "increase with stage" — without hard clinical endpoints (cardiac death, incident CHF) or multivariable Cox models, and hence without endpoint events or hazard ratios, leaving nothing for quantitative synthesis. Second, <i>misalignment between marker and clinical question</i>: many studies measured organ-specific or systemic markers (red-cell distribution width, lipase, endothelin-1, soluble ST2, nitrotyrosine [21]) <span class="ref">RDW and pulmonary hypertension [17,18]; ET-1 in canine heart disease [19]; sST2 in MMVD [20]</span> that do not intersect with an ACVIM-anchored diagnostic question and were excluded as off-target. Third, <i>fragmented reference frameworks</i>: some reports substituted a single echocardiographic parameter (e.g., mitral regurgitant jet area) or ad hoc grading schemes for the full ACVIM system, precluding ROC computation against a common target condition or pooling with the present dataset. These excluded directions are not without value — soluble ST2 and galectin-3 (fibrosis axis) and endothelin-1 (pulmonary vascular–right heart axis) each correspond to coherent pathophysiological pathways — they have simply not yet been placed within the study template that anchors an ACVIM reference standard, hard endpoints, and prespecified cutoffs. The mapping suggests that what the field lacks is not new biomarkers but <b>a unified research framework capable of converting candidate markers into synthesizable evidence</b>.</p>
 </div>
 
 <div class="blk" data-id="disc-3">
@@ -458,7 +475,13 @@
 
 <div class="blk" data-id="disc-4">
 <span class="topic-tag">This paragraph: ⑤ repositioning echocardiography — why echo was excluded as an index test (circular logic) and its prognostic value (the paper's methodological highlight)</span>
-<p>A second methodological message concerns the position of echocardiography itself. We deliberately excluded echocardiographic index tests from the meta-analysis because the ACVIM reference standard is defined by echocardiographic findings; evaluating an echo-based test against an echo-defined gold standard produces incorporation bias, inflating sensitivity and specificity toward values that reflect circular logic rather than independent diagnostic information. To our knowledge, prior narrative reviews in this area have not made this distinction explicit, and the inclusion of echo-derived index tests would have rendered the pooled estimates uninterpretable. This is not a dismissal of echocardiography—quite the opposite. Our prognostic synthesis demonstrates that echocardiographic measurements retain strong, well-characterized prognostic value: left atrial size expressed as LA/Ao ≥ 2.2 predicted cardiac death with an HR of <span class="num">2.334</span> (95% CI <span class="num">1.219–4.468</span>) <span class="ref">Park 2026</span>, and normalized left ventricular internal diameter carried prognostic information <span class="ref">Hezzell 2012</span>. Because no pair of prognostic studies was sufficiently homogeneous to meet our criteria for quantitative pooling, we synthesized this evidence narratively. Within it, two independent studies reported concordant associations between elevated NT-proBNP and cardiac death, suggesting that biomarkers may add prognostic—rather than purely diagnostic—value to echocardiographic staging. The resulting framework is coherent: echocardiography is simultaneously the structural anchor of the reference standard and the strongest prognostic instrument, while biomarkers occupy the complementary roles of probability modification and prognostic enrichment. <span class="new-tag">Oct 29 new</span>This framing also answers the original clinical question of this review: the goal of biomarkers was never to replace echocardiography but to demonstrate <b>incremental value over echocardiography alone</b> — that is, whether a marker carries independent information in multivariable models adjusting for continuous echocardiographic variables (LA/Ao, LVIDDN). The prognostic synthesis provides a preliminary affirmative direction (NT-proBNP remained concordantly associated with cardiac death across two independent cohorts), yet studies meeting the "continuous echocardiographic variables plus biomarkers" design standard remain few in number — the very gap future work should target.</p>
+<p>A second methodological message concerns the position of echocardiography itself. We deliberately excluded echocardiographic index tests from the meta-analysis because the ACVIM reference standard is defined by echocardiographic findings; evaluating an echo-based test against an echo-defined gold standard produces incorporation bias, inflating sensitivity and specificity toward values that reflect circular logic rather than independent diagnostic information. To our knowledge, prior narrative reviews in this area have not made this distinction explicit, and the inclusion of echo-derived index tests would have rendered the pooled estimates uninterpretable. This is not a dismissal of echocardiography—quite the opposite. Our prognostic synthesis demonstrates that echocardiographic measurements retain strong, well-characterized prognostic value: left atrial size expressed as LA/Ao ≥ 2.2 predicted cardiac death with an HR of <span class="num">2.334</span> (95% CI <span class="num">1.219–4.468</span>) <span class="ref">Park 2026 [22]</span>, and normalized left ventricular internal diameter carried prognostic information <span class="ref">Hezzell 2012 [23]</span>. Because no pair of prognostic studies was sufficiently homogeneous to meet our criteria for quantitative pooling, we synthesized this evidence narratively. Within it, two independent studies reported concordant associations between elevated NT-proBNP and cardiac death, suggesting that biomarkers may add prognostic—rather than purely diagnostic—value to echocardiographic staging. The resulting framework is coherent: echocardiography is simultaneously the structural anchor of the reference standard and the strongest prognostic instrument, while biomarkers occupy the complementary roles of probability modification and prognostic enrichment. <span class="new-tag">Oct 29 new</span>This framing also answers the original clinical question of this review: the goal of biomarkers was never to replace echocardiography but to demonstrate <b>incremental value over echocardiography alone</b> — that is, whether a marker carries independent information in multivariable models adjusting for continuous echocardiographic variables (LA/Ao, LVIDDN). The prognostic synthesis provides a preliminary affirmative direction (NT-proBNP remained concordantly associated with cardiac death across two independent cohorts), yet studies meeting the "continuous echocardiographic variables plus biomarkers" design standard remain few in number — the very gap future work should target.</p>
+</div>
+
+<div class="blk" data-id="disc-4b">
+<span class="topic-tag">New (Oct 29, second addition): re-orienting clinical practice — staging as the skeleton for learning and structured management, heart-failure recognition as the bedside decision core; and the not-yet-established boundary of breed-standardized reference values</span>
+<p>Returning to the realities of companion-animal practice, these results point to a re-orientation of clinical focus worth stating explicitly <span class="new-tag">Oct 29 new</span>: in the day-to-day diagnosis of canine cardiac disease, the question clinicians actually need to answer is usually not "is this dog stage B2 or stage C," but "<b>is it in, or about to enter, congestive heart failure now</b>". The value of the ACVIM staging system is beyond dispute — it is structurally clear, teachable, and reproducible, and it forms the basic skeleton for learning and for structured management in veterinary cardiology, with follow-up intervals, drug initiation, and dose-escalation decisions all built on stage; but staging is fundamentally a static morphological position, whereas congestion is a dynamic functional state, and the two do not share a time scale. The target-condition stratification in this review provides quantitative support at precisely this point: the combined information from biomarkers and echocardiography identifies CHF (sensitivity <span class="num">0.756</span>, AUC <span class="num">0.795</span>) better overall than it identifies stage B2 remodeling (sensitivity <span class="num">0.655</span>, AUC <span class="num">0.769</span>). In other words, the comparative advantage of combining cardiac biomarkers with echocardiography is precisely to shift clinical attention from a <i>stage label</i> to <i>immediate recognition of the heart-failure state</i>. We therefore propose the following division of labor: <b>serious, structured management built on staging</b> — which answers "where do we start, and at what rhythm do we manage"; and <b>continuous, biomarker-plus-echocardiographic assessment to answer the bedside question</b> — "is the dog in heart failure now, should treatment be adjusted, should re-examination be moved up". This division also answers a third question <span class="new-tag">Oct 29 new</span>: <b>do the data support looking at only one of the two modalities, or prioritizing one?</b> The available evidence answers this clearly, and with a direction. <b>Biomarkers alone are not supported</b> — a sensitivity of 0.655 for the B2 target condition implies too high a miss rate, and under no target condition is there a basis for triggering or withholding therapy on biomarker results alone (see the clinical implications of target-condition stratification above); <b>echocardiography first is supported</b> — echo is already the structural anchor of the reference standard and the strongest prognostic instrument, and current practice of performing echo first is uncontroversial; the genuinely open question is whether biomarkers add anything <i>after</i> echocardiography — our prognostic synthesis gives a preliminarily affirmative direction (NT-proBNP carried adjusted information beyond echo in two independent cohorts), but the evidence is not yet saturated. The sequence supported by the data is therefore "<b>echocardiography first, biomarkers as increment, staging as the skeleton</b>" — neither an either-or choice nor biomarker-first. This is also self-consistent with the framework of the "repositioning echocardiography" paragraph above: in this setting, echo and biomarkers respectively carry the roles of structural/prognostic anchor and probability modification/dynamic monitoring, rather than competing with the staging system.</p>
+<p>At the same time, the boundary of applicability of this interpretation must be drawn honestly <span class="new-tag">Oct 29 new</span>: <b>breed</b>. The study populations included in this review mix purebred dogs (predominantly small breeds) with mixed-breed dogs, and <b>whether disease progression is consistent within a single pure breed, and between mixed-breed dogs of similar size, currently cannot be confirmed</b>. Consequently, whether one can analyze measurements against standardized breed-specific values (such as size-corrected LVIDDN, VHS, and related indices) and derive directly usable reference cutoffs likewise cannot be concluded from the available evidence. This means that the pooled operating points reported here <b>should be extrapolated across breeds with restraint</b>; future studies should report cutoffs and accuracy stratified by breed/size, and explicitly test breed effects within joint "continuous echocardiographic variable + biomarker" models — connecting directly to the third limitation (cutoff and breed-effect heterogeneity could not be formally examined) and to the research agenda in the Conclusions.</p>
 </div>
 
 <div class="blk" data-id="disc-5">
@@ -467,13 +490,13 @@
 </div>
 
 <div class="gap-box">
-<h4>【Discussion candidate paragraphs (reserved) · to be written pending innovation discussion and supervisor input】</h4>
+<h4>[Discussion candidate paragraphs (reserved) · to be written pending innovation discussion and supervisor input]</h4>
 <ul>
 <li><b>Oct 29 update:</b> <span class="ok">already in the main text</span> — failure-mode mapping (new Discussion paragraph), incremental value (end of echo paragraph), dichotomization (end of clinical paragraph), minimum reporting standards + three routes (Conclusion), discovery-stage gap (Introduction). The candidates below remain unwritten, pending supervisor input:</li>
 <li><b>Candidate A:</b> parallels and contrasts with the human heart-failure biomarker framework — cardiorenal syndrome; ADMA/SDMA as independent prognostic markers after renal adjustment (Tang 2008, ICD cohorts, Lorin 2017 — verified, not yet in the text); landing point: veterinary research should pivot toward ADMA and cystatin C.</li>
 <li><b>Candidate B:</b> assay-platform turnover and cutoff transportability — ELISA vs CLIA changes to absolute concentrations and cutoffs.</li>
 <li><b>Candidate C:</b> clinical deployment scenarios — triage value of biomarkers where ultrasound is unavailable; cost-effectiveness.</li>
-<li><b>Candidate D:</b> breed/size effects — the small-breed-dominated evidence base limits generalization of universal cutoffs.</li>
+<li><b>Candidate D:</b> breed/size effects — the small-breed-dominated evidence base limits generalization of universal cutoffs. <b>Oct 29, second update:</b> <span class="ok">core now written into the main text (§4.4b, second paragraph)</span> — within-breed and similar-mixed-breed consistency of progression, and whether standardized breed values can yield concrete reference cutoffs, both phrased as "cannot currently be confirmed".</li>
 <li><b>Candidate E:</b> linkage to ACVIM consensus statements and the EPIC-trial decision context — how biomarker results embed into current staging-treatment algorithms.</li>
 </ul>
 </div>
@@ -493,6 +516,7 @@
 <li><b>Echo's position is a methodological decision, not a data gap</b> — the ACVIM gold standard is echo-defined, making echo an index test circular; echo is the reference anchor and the strongest prognostic tool (LA/Ao ≥ 2.2 → cardiac death HR 2.334).</li>
 <li><b>The real proposition for biomarkers is incremental value over echo alone</b> — NT-proBNP showed concordant adjusted associations with cardiac death in two independent cohorts; studies meeting the "continuous echo variables + biomarker" design standard remain countable.</li>
 <li><b>The field lacks not new markers but a synthesizable research framework</b> — three recurrent failure modes among 55 excluded reports (pseudo-longitudinal / misaligned targets / fragmented reference systems); future studies should follow the minimum reporting standards (hard endpoints + adjusted HR; AUC + prespecified cutoffs + Se/Sp; incremental design) along the fibrosis, pulmonary vascular–right heart, and myocardial injury axes.</li>
+<li><b>The clinical focus should shift from staging to heart-failure recognition</b> — staging suits learning and structured management (answering "where do we start"), while the dynamic biomarker+echo combination better answers the bedside question "is the dog in heart failure now" (CHF identification 0.756/0.795 outperforms B2 identification 0.655/0.769); but cross-breed extrapolation requires restraint: whether progression is consistent within a breed and across similar mixed breeds, and whether standardized breed values can yield concrete reference cutoffs, currently cannot be confirmed.</li>
 </ol>
 </div>
 
@@ -529,13 +553,47 @@
 </div>
 
 <div class="gap-box">
-<h4>【Gap audit (editorial view) · full-document】</h4>
+<h4>[Gap audit (editorial view) · full-document]</h4>
 <ul>
 <li><span class="ok">Embedded and complete:</span> Figure 1 (PRISMA), Figure 2 (traffic-light), Figures 3A/B, 4, 5A/B, 6A/B, 7A/B, 8, 9A/B, 10A/B, S1 — 11 groups, 17 images.</li>
 <li><span class="no">Cited but absent:</span> Table 1, Table 3, Figure 10C (cTnI funnel — file exists, not embedded). <span class="ok">Added in v1.2:</span> Table 2 = 2×2 counts (§3.2, formal main table).</li>
 <li><span class="maybe">To be drawn:</span> sensitivity-analysis forest plots ×2, ROC-plane scatter, prognostic HR plot, QUIPS traffic-light.</li>
-<li><span class="maybe">Reference placeholders</span> throughout (~14+ pink marks) — the next major work package.</li>
+<li><b>References (first batch filled in v1.2.7):</b> 31 entries placed below with bibliographic details verified entry-by-entry against the full-text screening database (numbering follows approximate order of first appearance in the text; <b>final renumbering will follow the full citation pass</b>). Items marked [to verify] require volume/page or author-list confirmation against the PDFs.</li>
 </ul>
+<ol style="font-size:13.5px;line-height:1.8">
+<li>ACVIM consensus expert panel[author list to verify]. ACVIM consensus statement guidelines for the diagnosis, classification, and treatment of myxomatous mitral valve disease in dogs. <i>J Vet Intern Med</i>. 2019.</li>
+<li>Keene BW, Atkins CE, Bonagura JD, et al. Efficacy of pimobendan for the treatment of myxomatous mitral valve disease in dogs with preclinical murmur (the EPIC study)[volume/pages to verify]. <i>J Vet Intern Med</i>. 2019.</li>
+<li>Oyama MA, Sisson DD. Cardiac troponin-I concentration in dogs with cardiac disease. <i>J Vet Intern Med</i>. 2004. doi:10.1892/0891-6640(2004)18&lt;831:CTCIDW&gt;2.0.CO;2</li>
+<li>Kim YM, Kim SW, Kim JH. Galectin-3 is able to differentiate dogs with myxomatous mitral valve disease from healthy control dogs. <i>Am J Vet Res</i>. 2023. doi:10.2460/ajvr.23.03.0063</li>
+<li>Wilshaw J, Rosenthal SL, Wess G, et al. Accuracy of history, physical examination, cardiac biomarkers, and biochemical variables in identifying dogs with stage B2 degenerative mitral valve disease. <i>J Vet Intern Med</i>. 2021. doi:10.1111/jvim.16083</li>
+<li>Klein S, Nolte I, Granados-Soler JL, et al. Evaluation of new and old biomarkers in dogs with degenerative mitral valve disease. <i>BMC Vet Res</i>. 2022. doi:10.1186/s12917-022-03343-z</li>
+<li>Wesselowski S, Gordon SG, Fries R, et al. Use of physical examination, electrocardiography, radiography, and biomarkers to predict echocardiographic stage B2 myxomatous mitral valve disease in preclinical Cavalier King Charles Spaniels. <i>J Vet Cardiol</i>. 2023. doi:10.1016/j.jvc.2023.10.001</li>
+<li>Ogawa M, Hori Y, Kanno N, et al. Comparison of N-terminal pro-atrial natriuretic peptide and three cardiac biomarkers for discriminatory ability of clinical stage in dogs with myxomatous mitral valve disease. <i>J Vet Med Sci</i>. 2021. doi:10.1292/jvms.20-0629</li>
+<li>Schober KE, Hart TM, Stern JA, et al. Detection of congestive heart failure in dogs by Doppler echocardiography. <i>J Vet Intern Med</i>. 2010. doi:10.1111/j.1939-1676.2010.0592.x</li>
+<li>McInnes MDF, Moher D, Thombs BD, et al. Preferred Reporting Items for a Systematic Review and Meta-analysis of Diagnostic Test Accuracy Studies: the PRISMA-DTA statement. <i>JAMA</i>. 2018;319(4):388–396. doi:10.1001/jama.2017.19163</li>
+<li>Page MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <i>BMJ</i>. 2021;372:n71. doi:10.1136/bmj.n71</li>
+<li>Choi BS, Moon HS, Seo SH, Hyun C. Evaluation of serum cystatin-C and symmetric dimethylarginine concentrations in dogs with heart failure from chronic mitral valvular insufficiency. <i>J Vet Med Sci</i>. 2017. doi:10.1292/jvms.16-0188</li>
+<li>Savarese A, Probo M, Locatelli C, et al. Reliability of symmetric dimethylarginine in dogs with myxomatous mitral valve disease as kidney biomarker. <i>Open Vet J</i>. 2018. doi:10.4314/ovj.v8i3.11</li>
+<li>Valente C, Guglielmini C, Domenech O, et al. Symmetric dimethylarginine in dogs with myxomatous mitral valve disease at various stages of disease severity. <i>PLoS One</i>. 2020. doi:10.1371/journal.pone.0238440</li>
+<li>Valente C, Guglielmini C, Baron Toaldo M, et al. Plasmatic dimethylarginines in dogs with myxomatous mitral valve disease. <i>Front Vet Sci</i>. 2021. doi:10.3389/fvets.2021.738898</li>
+<li>Szczepankiewicz B, Pasławska U, Siwińska N, et al. Evaluation of the diagnostic value of the renal resistive index as a marker of the subclinical development of cardiorenal syndrome in MMVD dogs. <i>J Renin Angiotensin Aldosterone Syst</i>. 2021. doi:10.1177/1470320321995082</li>
+<li>Guglielmini C, Valentini CM, Contiero B, et al. Red cell distribution width has a negative prognostic role in dogs with myxomatous mitral valve disease. <i>Animals (Basel)</i>. 2021. doi:10.3390/ani11030778</li>
+<li>Mazzotta E, Guglielmini C, Menciotti G, et al. Red blood cell distribution width, hematology, and serum biochemistry in dogs with echocardiographically estimated precapillary and postcapillary pulmonary arterial hypertension. <i>J Vet Intern Med</i>. 2016. doi:10.1111/jvim.14596</li>
+<li>Tangmahakul N, Rungsipipat A, Surachetpong SD. Investigation of pulmonary artery and circulating endothelin-1 expression in dogs with pulmonary hypertension secondary to myxomatous mitral valve disease. <i>Vet World</i>. 2024. doi:10.14202/vetworld.2024.2144-2151</li>
+<li>Gimenes AM, et al. Soluble ST2 biomarker in heart failure secondary to chronic mitral valve degeneration in dogs. 2016.[journal and volume/pages to verify]</li>
+<li>Kim JS, Park JS, Park HJ, Seo KW, Song KH. Serum nitrotyrosine concentration in dogs with myxomatous mitral valve disease. <i>Korean J Vet Res</i>. 2017. doi:10.14405/kjvr.2017.57.1.17</li>
+<li>Park SW, Kim K, You KH, Ro WB, Lee CM. Prognostic interaction between clinical stage and left atrial remodeling in dogs with myxomatous mitral valve disease. 2026. doi:10.1080/01652176.2026.2668790[journal name to verify (DOI prefix points to The Veterinary Quarterly)]</li>
+<li>Hezzell MJ, Boswood A, Chang YM, et al. The combined prognostic potential of serum high-sensitivity cardiac troponin I and N-terminal pro-B-type natriuretic peptide concentrations in dogs with degenerative mitral valve disease. <i>J Vet Intern Med</i>. 2012. doi:10.1111/j.1939-1676.2012.00894.x</li>
+<li>Kim HS, Suh SI, Hyun C, et al. Diagnostic value of echocardiographic indices and cardiac biomarkers in dogs with chronic mitral valve insufficiency. <i>Thai J Vet Med</i>. 2017.[volume/pages to verify]</li>
+<li>Chanmongkolpanit K, Riengvirodkij N, Channgam P, et al. How accurate are NT-proBNP, ANP, and cTnI levels in diagnosing dogs with myxomatous mitral valve disease? <i>Open Vet J</i>. 2024. doi:10.5455/OVJ.2024.v14.i6.10</li>
+<li>Cardenal-Morales P, Cristóbal JI, Barrera R, et al. Evaluation of urinary tubular biomarkers in dogs with myxomatous mitral valve disease across ACVIM stages. <i>Vet Sci</i>. 2026. doi:10.3390/vetsci13030243</li>
+<li>Iwasa N, Kumazawa R, Nomura S, et al. Prognostic value of serum cystatin C concentration in dogs with myxomatous mitral valve disease. <i>J Vet Intern Med</i>. 2023. doi:10.1111/jvim.16669</li>
+<li>Iwasa N, Kumazawa R, Shimizu M, et al. Prognostic value of circulating cardiac and renal biomarkers in dogs with myxomatous mitral valve disease. <i>Res Vet Sci</i>. 2025. doi:10.1016/j.rvsc.2025.105649</li>
+<li>Masters AK, Mochel JP, Cai J, et al. Prognostic value of plasma cortisol concentration in dogs with congestive heart failure. <i>J Vet Intern Med</i>. 2026. doi:10.1093/jvimsj/aalag063</li>
+<li>Channgam P, Sakcamduang W, Chanmongkolpanit K, et al. Alteration of clinical parameters before mortality and prognostic outcomes of pulmonary hypertension in dogs with myxomatous mitral valve disease. <i>Open Vet J</i>. 2024. doi:10.5455/OVJ.2024.v14.i9.11</li>
+<li>Szczepankiewicz B, Paslawska U, Paslawski R, et al. The urine podocin/creatinine ratio as a novel biomarker of cardiorenal syndrome in dogs due to degenerative mitral valve disease. <i>J Physiol Pharmacol</i>. 2019. doi:10.26402/jpp.2019.2.06</li>
+</ol>
+<p style="font-size:13px;color:#6b7280;margin-top:6px"><b>Still pending (6 slots, corresponding to the remaining pink marks in the text):</b> MMVD epidemiology and prevalence in small-breed dogs; absence of prior systematic reviews of canine cardiac biomarkers; examples of biomarker studies limited to between-group comparisons; limited access to echocardiography in primary care; interobserver variability and borderline B2 classification; NT-proBNP physiology and wall stretch in dogs. — These 6 require targeted PubMed searches before citation (next work package).</p>
 </div>
 
 </div>
@@ -555,17 +613,32 @@
 (function(){
   var KEY='mmvd_en_v12_annot';
   var data={};
-  try{ data=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ data={}; }
+  try{ data=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){ data=null; }
+  if(!data || typeof data!=='object'){
+    try{ data=JSON.parse(localStorage.getItem(KEY+'_bak')||'{}')||{};
+         localStorage.setItem(KEY, JSON.stringify(data)); }catch(e2){ data={}; }
+  }
   var current=null, currentQuote='', editIdx=null, toastTimer=null;
 
-  function save(){ localStorage.setItem(KEY, JSON.stringify(data)); }
+  function save(){ var s=JSON.stringify(data); localStorage.setItem(KEY, s); localStorage.setItem(KEY+'_bak', s); }
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   function renderBlock(blk){
     var id=blk.dataset.id, cards=blk.querySelector('.ann-cards');
     if(!cards){ cards=document.createElement('div'); cards.className='ann-cards'; blk.appendChild(cards); }
+    if(!cards.__wired){ cards.__wired=1;
+      cards.addEventListener('mouseenter',function(){ clearTimeout(blk.__at); });
+      cards.addEventListener('mouseleave',function(){
+        clearTimeout(blk.__at);
+        blk.__at=setTimeout(function(){
+          if(document.getElementById('pop').style.display==='block') return;
+          blk.classList.remove('annot-open');
+        },600);
+      });
+    }
     cards.innerHTML='';
     var list=data[id]||[];
+    cards.setAttribute('data-n', list.length);
     list.forEach(function(a,i){
       var d=document.createElement('div'); d.className='ann-card';
       d.innerHTML='<button class="del" data-i="'+i+'">Delete</button>'+
@@ -595,6 +668,20 @@
   function toast(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.style.opacity='1';
     clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.style.opacity='0'; },1800); }
 
+  function pulse(blk){ var c=blk.querySelector('.ann-cards'); if(!c) return;
+    c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash');
+    setTimeout(function(){ c.classList.remove('flash'); },1400); }
+
+  var jumpIdx=0;
+  document.getElementById('annTotal').addEventListener('click', function(){
+    var blks=Array.prototype.slice.call(document.querySelectorAll('.blk.has-ann'));
+    if(!blks.length) return;
+    jumpIdx=jumpIdx%blks.length;
+    var b=blks[jumpIdx]; jumpIdx++;
+    b.scrollIntoView({behavior:'smooth',block:'center'});
+    pulse(b);
+  });
+
   function openEditor(id, idx, el){
     var a=(data[id]||[])[idx]; if(!a) return;
     current=id; currentQuote=a.q||''; editIdx=idx;
@@ -623,29 +710,19 @@
       data[current].push({ q:currentQuote, t:t,
         time: now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes()) });
     }
-    editIdx=null; save(); refresh(); closePop();
+    var blkEl=document.querySelector('.blk[data-id="'+current+'"]');
+    editIdx=null; save(); refresh(); if(blkEl) pulse(blkEl); closePop();
   };
 
   document.querySelectorAll('.blk').forEach(function(blk){
     var btn=document.createElement('button'); btn.className='ann-btn'; btn.textContent='+ Comment';
     btn.onclick=function(e){
       e.stopPropagation();
-      current=blk.dataset.id; currentQuote='';
-      var sel=window.getSelection ? window.getSelection().toString() : '';
-      if(sel && blk.contains( (window.getSelection().anchorNode&&window.getSelection().anchorNode.parentElement) )){
-        currentQuote=sel.trim();
-      }
-      var pq=document.getElementById('popQuote');
-      if(currentQuote){ pq.style.display='block'; pq.textContent='Selection: "'+currentQuote.slice(0,200)+'"'; }
-      else pq.style.display='none';
-      document.getElementById('popText').value='';
-      var pop=document.getElementById('pop');
-      pop.style.display='block';
-      var r=btn.getBoundingClientRect();
-      var top=Math.min(r.bottom+8, window.innerHeight-220);
-      var left=Math.min(r.left-140, window.innerWidth-440);
-      pop.style.top=Math.max(8,top)+'px'; pop.style.left=Math.max(8,left)+'px';
-      document.getElementById('popText').focus();
+      if(!data[blk.dataset.id]) data[blk.dataset.id]=[];
+      var now=new Date(); var pad=function(x){return (x<10?'0':'')+x;};
+      data[blk.dataset.id].push({ q:'', t:'',
+        time: now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes()) });
+      save(); refresh(); pulse(blk); toast('✓ Whole-paragraph comment added to this panel (click the card to write a note)');
     };
     blk.appendChild(btn);
   });
@@ -677,12 +754,12 @@
       var now=new Date(); var pad=function(x){return (x<10?'0':'')+x;};
       data[blk.dataset.id].push({ q:txt, t:'',
         time: now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes()) });
-      save(); refresh(); toast('✓ Marked — click the card to add a note');
+      save(); refresh(); pulse(blk); toast('✓ Marked — filed into this paragraph\'s comment panel');
     },10);
   });
 
   window.exportAnn=function(){
-    var lines=['# MMVD Manuscript v1.2 (EN) — comment export','# Exported: '+new Date().toLocaleString('en-GB'),''];
+    var lines=['# MMVD Manuscript v1.2.7 (EN) — comment export','# Exported: '+new Date().toLocaleString('en-GB'),''];
     var total=0;
     document.querySelectorAll('.blk').forEach(function(blk){
       var list=data[blk.dataset.id]||[];
@@ -696,7 +773,7 @@
     if(!total) lines.push('(no comments yet)');
     var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
     var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-    a.download='MMVD_v1.2_EN_comments_'+new Date().toLocaleDateString('sv')+'.md'; a.click();
+    a.download='MMVD_v1.2.7_EN_comments_'+new Date().toLocaleDateString('sv')+'.md'; a.click();
   };
 
   window.copyAnn=function(){
@@ -721,6 +798,18 @@
   };
 
   refresh();
+
+  // Narrow-window hover float: show the panel while hovering an annotated paragraph, collapse after a delay (zero impact on text flow)
+  document.querySelectorAll('.blk').forEach(function(blk){
+    blk.addEventListener('mouseenter',function(){ blk.classList.add('annot-open'); clearTimeout(blk.__at); });
+    blk.addEventListener('mouseleave',function(){
+      clearTimeout(blk.__at);
+      blk.__at=setTimeout(function(){
+        if(document.getElementById('pop').style.display==='block') return;
+        blk.classList.remove('annot-open');
+      },600);
+    });
+  });
 })();
 </script>
 </body>
